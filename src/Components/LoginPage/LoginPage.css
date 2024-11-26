@@ -1,0 +1,232 @@
+.login-main-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(to right, #e2ded8, #380505);
+  padding: 20px;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.login-main-container img {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  margin-bottom: 30rem;
+}
+
+.login-main-container h1 {
+  position: absolute;
+  margin-bottom: 24rem;
+  font-size: 2em;
+  font-weight: normal;
+  font-family: "Parkinsanns";
+  color: white;
+}
+
+.form {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 0.1em;
+  background-color: #350707;
+  border-radius: 10px;
+  transition: 0.4s ease-in-out;
+}
+
+.form:hover {
+  transform: scale(1.05);
+}
+
+#heading {
+  text-align: center;
+  margin: 2em;
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border-radius: 25px;
+  padding: 0.6em;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #360a0a;
+  box-shadow: inset 2px 5px 10px rgb(145, 115, 17);
+}
+
+.input-icon {
+  height: 1.3em;
+  width: 1.3em;
+  fill: white;
+}
+
+.input-field {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #d3d3d3;
+}
+
+.form .btn {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 2.5em;
+}
+
+.button1 {
+  padding: 0.5em;
+  padding-left: 1.1em;
+  padding-right: 1.1em;
+  border-radius: 5px;
+  margin-right: 0.5em;
+  border: none;
+  outline: none;
+  transition: 0.4s ease-in-out;
+  background-color: #6d1919;
+  color: white;
+}
+
+.button1:hover {
+  background-color: rgb(78, 11, 11);
+  color: white;
+}
+
+.button3 {
+  margin-bottom: 3em;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  transition: 0.4s ease-in-out;
+  background-color: transparent;
+  text-decoration: underline;
+  color: white;
+}
+
+.button3:hover {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .login-main-container img {
+    height: 60px;
+    max-width: 60px;
+    margin-bottom: 30rem;
+  }
+
+  .login-main-container h1 {
+    font-size: 5vw;
+    margin-bottom: 23rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-main-container img {
+    height: 50px;
+    max-width: 50px;
+    margin-bottom: 25rem;
+  }
+
+  .login-main-container h1 {
+    font-size: 6vw;
+    margin-bottom: 20rem;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(150, 137, 137, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background-color: #fee7ef;
+  padding: 2em;
+  border-radius: 10px;
+  width: 220px;
+  height: 320px;
+  justify-content: center;
+  align-items: centers;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+  margin-top: 120px;
+  display: block;
+}
+
+.modal h2 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.modal input {
+  border: solid 1px #a1a1aa;
+  padding: 10px;
+  border-radius: 8px;
+  color: black;
+  width: 90%;
+}
+
+.modal p {
+  text-align: justify;
+}
+
+.modal .modal-btn {
+  border: none;
+  padding: 10px;
+  background-color: #005bc4;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.modal .modal-cancel {
+  margin-top: 10px;
+  border: none;
+  padding: 10px;
+  background-color: transparent;
+  color: #005bc4;
+  width: 100%;
+}
+
+.modal-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
