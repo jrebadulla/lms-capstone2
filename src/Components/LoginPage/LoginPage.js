@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import logo from "./Image/logo-svcc.png";
+import logo from "../Image/logo-svcc.png";
+import { loginUser, resetPassword } from "./FirebaseService";
 
 const LoginPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [resetEmail, setResetEmail] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -13,11 +19,40 @@ const LoginPage = () => {
     setIsModalOpen(false);
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    try {
+      await loginUser(email, password);
+      alert("Login successful!");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    try {
+      await resetPassword(resetEmail);
+      alert("Password reset email sent!");
+      closeModal();
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="login-main-container">
-      <img src={logo} />
-      <h1>SVCC Library Management System</h1>
-      <form className="form">
+      <img src={logo} alt="Logo" />
+      <h1> Library Management System</h1>
+      <form className="form" onSubmit={handleLogin}>
         <p id="heading">Login</p>
         <div className="field">
           <svg
@@ -32,9 +67,11 @@ const LoginPage = () => {
           </svg>
           <input
             autoComplete="off"
-            placeholder="Username"
+            placeholder="Email"
             className="input-field"
-            type="text"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="field">
@@ -52,13 +89,16 @@ const LoginPage = () => {
             placeholder="Password"
             className="input-field"
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="btn">
-          <button className="button1">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button className="button1" type="submit" disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </div>
+        {error && <p className="error-message">{error}</p>}
         <button className="button3" type="button" onClick={openModal}>
           Forgot Password
         </button>
@@ -70,21 +110,26 @@ const LoginPage = () => {
             <h2>Forgot Your Password?</h2>
             <p>
               Please enter the email address associated with your Library
-              Accountff, then check your inbox for password reset instructions.
+              Account, then check your inbox for password reset instructions.
             </p>
             <input
               type="email"
               className="input-field"
               placeholder="Email Address"
+              value={resetEmail}
+              onChange={(e) => setResetEmail(e.target.value)}
             />
-
-            <button className="modal-btn" onClick={closeModal}>
-              Reset Password
+            <button
+              className="modal-btn"
+              onClick={handleResetPassword}
+              disabled={isLoading}
+            >
+              {isLoading ? "Sending..." : "Reset Password"}
             </button>
-
             <button className="modal-cancel" onClick={closeModal}>
               Back
             </button>
+            {error && <p className="error-message">{error}</p>}
           </div>
         </div>
       )}
