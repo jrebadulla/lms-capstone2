@@ -1,0 +1,14 @@
+.manageBook-main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.manageBook-main-container .table-container {
+  width: 1000px;
+  margin-right: 250px;
+  margin-top: 80px;
+  height: 73vh;
+  border-radius: 10px;
+}

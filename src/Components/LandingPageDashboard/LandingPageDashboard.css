@@ -1,0 +1,77 @@
+.dashboard-main-container {
+  display: flex;
+  height: 100vh;
+  justify-content: start;
+  background: linear-gradient(to left, #e2ded8, #440a0a);
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #460b0b;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar .logo-container {
+  width: 90%;
+  height: 70px;
+  background-color: #e2ded8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px 10px;
+  margin-top: 20px;
+  box-shadow: 4px 4px 10px 2px rgba(199, 165, 12, 0.5);
+}
+
+.sidebar p {
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.sidebar .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px rgba(68, 6, 6, 0.2);
+}
+
+.sidebar .btn-sidebar {
+  position: absolute;
+  margin-top: 10rem;
+  background-color: transparent;
+  text-align: center;
+  flex-direction: column;
+  gap: 30px;
+  display: flex;
+}
+
+.btn-sidebar button {
+  width: 200px;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  color: #f5a524;
+  font-family: "Parkinsans";
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-sidebar button:hover {
+  background-color: #f7b750;
+  color: #380505;
+  border-radius: 5px;
+}
+
+.dashboard-main-container .categories-container {
+  width: 100%;
+  position: absolute;
+  height: 100vh;
+  left: 250px;
+}

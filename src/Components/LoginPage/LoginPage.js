@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./LoginPage.css";
 import logo from "../Image/logo-svcc.png";
 import { loginUser, resetPassword } from "./FirebaseService";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,6 +11,8 @@ const LoginPage = () => {
   const [resetEmail, setResetEmail] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -25,7 +28,7 @@ const LoginPage = () => {
     setError("");
     try {
       await loginUser(email, password);
-      alert("Login successful!");
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     } finally {
