@@ -1,0 +1,13 @@
+.custom-table .ant-table-thead > tr > th {
+  background-color: #996c6c;
+  color: white;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  background: #ddcdcd;
+  color: #333;
+}
+
+.action-icon {
+  color: #531212;
+}
