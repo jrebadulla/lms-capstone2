@@ -1,6 +1,6 @@
 .dashboard-main-container {
   display: flex;
-  height: 100vh;
+  max-height: 100vh;
   justify-content: start;
   background: linear-gradient(to left, #e2ded8, #440a0a);
 }
@@ -63,6 +63,12 @@
   gap: 8px;
 }
 
+.btn-sidebar button.active {
+  background-color: #f7b750;
+  color: #380505;
+  border-radius: 5px;
+}
+
 .btn-sidebar button:hover {
   background-color: #f7b750;
   color: #380505;
@@ -70,8 +76,9 @@
 }
 
 .dashboard-main-container .categories-container {
-  width: 100%;
+  width: 80%;
   position: absolute;
   height: 100vh;
   left: 250px;
+  padding: 20px;
 }

@@ -6,9 +6,7 @@
 }
 
 .manageBook-main-container .table-container {
-  width: 1000px;
-  margin-right: 250px;
-  margin-top: 80px;
-  height: 73vh;
+  width: 950px;
+  margin-top: 50px;
   border-radius: 10px;
 }

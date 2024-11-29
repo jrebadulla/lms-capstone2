@@ -8,12 +8,6 @@
   padding: 20px;
 }
 
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
-
 .login-main-container img {
   position: absolute;
   height: 60px;
