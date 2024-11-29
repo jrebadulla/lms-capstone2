@@ -15,7 +15,6 @@ const BookReport = () => {
   const [booksAvailable, setBooksAvailable] = useState(3800);
   const [returnedBooks, setReturnedBooks] = useState(900);
 
-  // Donut Chart for Inventory Breakdown
   const inventoryData = {
     series: [40, 30, 20, 5, 5],
     options: {
@@ -50,8 +49,6 @@ const BookReport = () => {
     },
   };
   
-
-  // Radial Bar Chart for Condition Breakdown
   const conditionData = {
     series: [50, 40, 10],
     options: {
@@ -86,7 +83,6 @@ const BookReport = () => {
     },
   };
 
-  // Bar Chart for Books Added
   const addedBooksData = {
     series: [
       {
@@ -129,7 +125,6 @@ const BookReport = () => {
     },
   };
 
-  // Bar Chart for Borrowed, Available, and Returned Books
   const overallBooksData = {
     series: [
       {
@@ -181,7 +176,6 @@ const BookReport = () => {
     },
   };
 
-  // Top 10 Most Borrowed Books
   const mostBorrowedBooksData = {
     series: [
       {
@@ -242,7 +236,6 @@ const BookReport = () => {
     },
   };
 
-  // Pie Chart for Late Returns by Level
   const lateReturnLevelsData = {
     series: [40, 30, 20, 5, 5],
     options: {
@@ -281,7 +274,6 @@ const BookReport = () => {
     },
   };
 
-  // Pie Chart for Early Returns by Level
   const earlyReturnLevelsData = {
     series: [30, 35, 20, 10, 5],
     options: {
@@ -324,7 +316,6 @@ const BookReport = () => {
     <div className="report-container">
       <h2>Book Reports Overview</h2>
 
-      {/* Date Picker */}
       <div className="date-range-container">
         <h4>Select Date Range:</h4>
         <DatePicker.RangePicker
@@ -343,7 +334,6 @@ const BookReport = () => {
         />
       </div>
 
-      {/* Summary Cards */}
       <div className="summary-container">
         <div className="stat-card">
           <h3>Total Borrowed Books</h3>
@@ -359,7 +349,6 @@ const BookReport = () => {
         </div>
       </div>
 
-      {/* Existing Charts */}
       <div className="chart-wrapper">
         <div className="chart-container">
           <h3>Overall Book Statistics</h3>
@@ -399,7 +388,6 @@ const BookReport = () => {
         </div>
       </div>
 
-      {/* New Charts */}
       <div className="chart-wrapper">
         <div className="chart-container">
           <h3>Top 10 Most Borrowed Books</h3>

@@ -1,8 +1,8 @@
 .report-container {
   padding: 30px;
-  background: rgba(255, 255, 255, 0.2); /* Transparent white */
-  backdrop-filter: blur(10px); /* Blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
   border-radius: 16px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -13,7 +13,7 @@
   font-family: "Roboto", sans-serif;
   animation: fadeIn 1s ease-out;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border for a frosted effect */
+  border: 1px solid rgba(255, 255, 255, 0.3); 
 }
 
 .report-container:hover {
@@ -33,7 +33,6 @@ h2 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Date Picker */
 .date-range-container {
   display: flex;
   justify-content: center;
@@ -67,9 +66,9 @@ h2 {
   margin: 20px auto;
   width: 100%;
   max-width: 1200px;
-  background: rgba(255, 255, 255, 0.2); /* Transparent white */
-  backdrop-filter: blur(10px); /* Blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
   border-radius: 12px;
   padding: 20px 30px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -112,7 +111,7 @@ h2 {
   color: #1d6fa5;
 }
 
-/* Chart Wrapper */
+
 .chart-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -126,9 +125,9 @@ h2 {
 }
 
 .chart-container {
-  background: rgba(255, 255, 255, 0.2); /* Transparent white */
-  backdrop-filter: blur(10px); /* Blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -155,8 +154,6 @@ h2 {
   background-color: transparent;
 }
 
-
-/* Responsive Design */
 @media (max-width: 768px) {
   h2 {
     font-size: 2rem;
