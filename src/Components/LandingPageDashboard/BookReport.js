@@ -360,7 +360,7 @@ const BookReport = () => {
           />
         </div>
         <div className="chart-container">
-          <h3>Book Inventory Breakdown (Donut)</h3>
+          <h3>Book Inventory Breakdown</h3>
           <ReactApexChart
             options={inventoryData.options}
             series={inventoryData.series}
@@ -369,7 +369,7 @@ const BookReport = () => {
           />
         </div>
         <div className="chart-container">
-          <h3>Book Condition Breakdown (Radial Bar)</h3>
+          <h3>Book Condition Breakdown</h3>
           <ReactApexChart
             options={conditionData.options}
             series={conditionData.series}

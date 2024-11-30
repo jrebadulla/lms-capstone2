@@ -1,0 +1,74 @@
+.audit-trail-main-container {
+  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  height: 85vh;
+  width: 95%;
+  overflow-y: auto;
+  border-radius: 20px;
+  padding: 20px;
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1);
+}
+
+.audit-trail-main-container::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.audit-trail-main-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-radius: 10px; 
+  transition: background-color 0.3s ease; 
+}
+
+.audit-trail-main-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.audit-trail-main-container::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px; 
+}
+
+
+.filter-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ant-btn-primary {
+  background-color: #4e1313;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.ant-btn-primary:hover {
+  background-color: #4e1313 !important;
+  transform: scale(1.05);
+}
+
+.ant-picker {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.3s;
+}
+
+.ant-picker:hover {
+  border-color: #550e0e !important;
+  background-color: transparent;
+}
+
+.list-item-title {
+  color: #f0f1f3;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.list-item-description {
+  color: #030405;
+  font-size: 14px;
+}
