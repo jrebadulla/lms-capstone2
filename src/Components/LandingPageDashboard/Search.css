@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   background-color: #521717;
+  border: none;
   border-radius: 10px;
 }
 
@@ -32,14 +33,14 @@
 
 .button .button__icon {
   position: absolute;
-  transform: translateX(150px);
-  height: 100%;
-  width: 39px;
-  background-color: #521717;
+  transform: translateX(140px);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  text-align: center;
+  border: solid 1px #fff;
+  border-radius: 50%;
 }
 
 .button .svg {
@@ -51,25 +52,8 @@
   background: #5f1a1a;
 }
 
-.button:hover .button__text {
-  color: transparent;
-}
-
-.button:hover .button__icon {
-  width: 200px;
-  transform: translateX(0);
-}
-
-.button:active .button__icon {
-  background-color: #521717;
-}
-
-.button:active {
-  border: 1px solid #d6ab1e;
-}
-
 .search-container {
-  margin-left: 100px;
+  margin-left: 150px;
 }
 
 .custom-search {
