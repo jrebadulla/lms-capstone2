@@ -1,0 +1,155 @@
+.bookshelf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px;
+  background: transparent;
+  border-radius: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  perspective: 1500px;
+}
+
+.bookshelf-container .custom-search {
+  margin-left: 450px;
+}
+
+.book-shelf-main-container {
+  height: 94vh;
+  width: 98%;
+  overflow-y: auto;
+  border-radius: 15px;
+  scrollbar-width: thin;
+  scrollbar-color: #41040467 transparent;
+}
+
+.book-shelf-main-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.book-shelf-main-container::-webkit-scrollbar-track {
+  background: #e9d8a6;
+  border-radius: 5px;
+}
+
+.book-shelf-main-container::-webkit-scrollbar-thumb {
+  background: #5c4033;
+  border-radius: 5px;
+}
+
+.shelf {
+  position: relative;
+  background: linear-gradient(to right, #551313, #f3e5df);
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.shelf-number {
+  margin: 0;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background: transparent;
+  border-radius: 10px;
+  align-self: flex-start;
+}
+
+.books {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: transparent;
+  border-radius: 10px;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #41040467 transparent;
+}
+
+.books::-webkit-scrollbar {
+  height: 8px;
+}
+
+.books::-webkit-scrollbar-track {
+  background: #e9d8a6;
+  border-radius: 5px;
+}
+
+.books::-webkit-scrollbar-thumb {
+  background: #5c4033;
+  border-radius: 5px;
+}
+
+.book {
+  min-width: 70px;
+  height: 120px;
+  background: linear-gradient(to bottom, #681313, hsl(40, 73%, 80%));
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1.5px solid #ecc892;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  transform: rotateY(0deg);
+}
+
+.book::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.transparenttextures.com/patterns/light-paper-fibers.png");
+  opacity: 0.2;
+}
+
+.book:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  transform: translateY(-10px) rotateY(10deg);
+}
+
+.book::before {
+  content: "Available";
+  position: absolute;
+  top: 5px;
+  left: -15px;
+  transform: rotate(-45deg);
+  background: #4caf50;
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.book.unavailable::before {
+  content: "Unavailable";
+  position: absolute;
+  top: 0px;
+  right: -10px;
+  left: -20px;
+  background: #f44336;
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  text-align: justify;
+}
