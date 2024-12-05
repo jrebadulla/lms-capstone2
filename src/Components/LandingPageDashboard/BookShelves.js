@@ -1,7 +1,9 @@
 import React from "react";
 import "./BookShelves.css";
+import { Input } from "antd";
 
 const BookShelves = () => {
+  const { Search } = Input;
   const shelves = [
     {
       shelfNumber: 1,
@@ -41,6 +43,16 @@ const BookShelves = () => {
         { title: "Book 18", available: true },
         { title: "Book 19", available: false },
         { title: "Book 20", available: true },
+        { title: "Book 16", available: false },
+        { title: "Book 17", available: true },
+        { title: "Book 18", available: true },
+        { title: "Book 19", available: false },
+        { title: "Book 20", available: true },
+        { title: "Book 16", available: false },
+        { title: "Book 17", available: true },
+        { title: "Book 18", available: true },
+        { title: "Book 19", available: false },
+        { title: "Book 20", available: true },
       ],
     },
   ];
@@ -48,6 +60,14 @@ const BookShelves = () => {
   return (
     <div className="book-shelf-main-container">
       <div className="bookshelf-container">
+        <Search
+          placeholder="Search book here"
+          allowClear
+          enterButton="Search"
+          size="large"
+          className="custom-search"
+          // onSearch={onSearch}
+        />
         {shelves.map((shelf, index) => (
           <div key={index} className="shelf">
             <h3 className="shelf-number">Shelf {shelf.shelfNumber}</h3>
@@ -55,7 +75,9 @@ const BookShelves = () => {
               {shelf.books.map((book, bookIndex) => (
                 <div
                   key={bookIndex}
-                  className={`book ${book.available ? "available" : "unavailable"}`}
+                  className={`book ${
+                    book.available ? "available" : "unavailable"
+                  }`}
                   title={book.title}
                 >
                   {book.title}
