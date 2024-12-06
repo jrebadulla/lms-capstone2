@@ -103,10 +103,10 @@ const AuditTrail = () => {
         itemLayout="horizontal"
         dataSource={data}
         renderItem={(item, index) => (
-          <List.Item>
+          <List.Item className="custom-list-item">
             <List.Item.Meta
               avatar={
-                <Avatar
+                <Avatar className="custom-avatar"
                   src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
                 />
               }

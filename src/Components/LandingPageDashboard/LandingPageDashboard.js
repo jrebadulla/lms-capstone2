@@ -12,6 +12,7 @@ import ManageBook from "./ManageBook.js";
 import BookReport from "./BookReport.js";
 import AuditTrail from "./AuditTrail.js";
 import BookShelves from "./BookShelves.js";
+import ManageUser from "./ManageUser.js";
 
 const LandingPageDashboard = () => {
   const [activeSection, setActiveSection] = useState("manageBook");
@@ -55,19 +56,19 @@ const LandingPageDashboard = () => {
           >
             <AuditOutlined className="btn-side-icon " />
             Audit Trail
-          </button> <button
+          </button>{" "}
+          <button
             className={activeSection === "bookShelves" ? "active" : ""}
             onClick={() => handleButtonClick("bookShelves")}
           >
             <ContainerOutlined className="btn-side-icon " />
-           Book shelf
+            Book shelf
           </button>
-
         </div>
       </div>
       <div className="categories-container">
         {activeSection === "manageBook" && <ManageBook />}
-        {activeSection === "manageUser" && <div>Manage User Content</div>}
+        {activeSection === "manageUser" && <ManageUser />}
         {activeSection === "bookReport" && <BookReport />}
         {activeSection === "auditTrail" && <AuditTrail />}
         {activeSection === "bookShelves" && <BookShelves />}

@@ -165,6 +165,7 @@ const AntTable = ({ setRefreshBooks }) => {
         locale={{
           emptyText: isLoading ? <Spin tip="Loading Books..." /> : "No Data",
         }}
+    
       />
 
       <Modal
@@ -242,45 +243,40 @@ const AntTable = ({ setRefreshBooks }) => {
               setEditingBook({ ...editingBook, ...changedValues });
             }}
           >
-            <Row gutter={16}>
-              <Col span={12}>
-                <Form.Item label="Title" name="title">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Author" name="author">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Category" name="category">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="ISBN" name="isbn">
-                  <Input />
-                </Form.Item>
+            <Form.Item label="Title" name="title">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Author" name="author">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Category" name="category">
+              <Input />
+            </Form.Item>
+            <Form.Item label="ISBN" name="isbn">
+              <Input />
+            </Form.Item>
 
-                <Form.Item label="Publisher" name="publisher">
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item label="Total Copies" name="totalCopies">
-                  <Input />
-                </Form.Item>
+            <Form.Item label="Publisher" name="publisher">
+              <Input />
+            </Form.Item>
 
-                <Form.Item label="Year" name="year">
-                  <Input />
-                </Form.Item>
+            <Form.Item label="Total Copies" name="totalCopies">
+              <Input />
+            </Form.Item>
 
-                <Form.Item label="Copies Available" name="copiesAvailable">
-                  <Input type="number" />
-                </Form.Item>
-                <Form.Item label="Shelf Location" name="shelfLocation">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Book Description" name="bookDescription">
-                  <TextArea />
-                </Form.Item>
-              </Col>
-            </Row>
+            <Form.Item label="Year" name="year">
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Copies Available" name="copiesAvailable">
+              <Input type="number" />
+            </Form.Item>
+            <Form.Item label="Shelf Location" name="shelfLocation">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Book Description" name="bookDescription">
+              <TextArea />
+            </Form.Item>
           </Form>
         )}
       </Modal>

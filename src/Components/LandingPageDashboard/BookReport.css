@@ -15,7 +15,10 @@
   transition: all 0.3s ease;
   width: 95%;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1);
+  scrollbar-color: rgba(63, 27, 27, 0.5) transparent;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+  background-clip: padding-box;
 }
 
 .report-container::-webkit-scrollbar {
@@ -89,6 +92,9 @@ h2 {
   padding: 20px 30px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border: 3px solid transparent;
+  background-clip: padding-box;
 }
 
 .stat-card {
@@ -101,11 +107,17 @@ h2 {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid #eef1f6;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+  background-clip: padding-box;
 }
 
 .stat-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+  background-clip: padding-box;
 }
 
 .stat-card h3 {
@@ -148,6 +160,9 @@ h2 {
 
   text-align: center;
   width: 820px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border: 3px solid transparent;
+  background-clip: padding-box;
 }
 
 .chart-container h3 {

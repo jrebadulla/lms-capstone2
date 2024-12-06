@@ -76,118 +76,110 @@ const ManageBook = () => {
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleAddBook}>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="title"
-                label="Title"
-                rules={[
-                  { required: true, message: "Please input the book title!" },
-                ]}
-              >
-                <AntInput />
-              </Form.Item>
+          <Form.Item
+            name="title"
+            label="Title"
+            rules={[
+              { required: true, message: "Please input the book title!" },
+            ]}
+          >
+            <AntInput />
+          </Form.Item>
 
-              <Form.Item
-                name="author"
-                label="Author"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the author's name!",
-                  },
-                ]}
-              >
-                <AntInput />
-              </Form.Item>
+          <Form.Item
+            name="author"
+            label="Author"
+            rules={[
+              {
+                required: true,
+                message: "Please input the author's name!",
+              },
+            ]}
+          >
+            <AntInput />
+          </Form.Item>
 
-              <Form.Item
-                name="category"
-                label="Category"
-                rules={[
-                  { required: true, message: "Please input the category!" },
-                ]}
-              >
-                <AntInput />
-              </Form.Item>
+          <Form.Item
+            name="category"
+            label="Category"
+            rules={[{ required: true, message: "Please input the category!" }]}
+          >
+            <AntInput />
+          </Form.Item>
 
-              <Form.Item
-                name="isbn"
-                label="ISBN"
-                rules={[{ required: true, message: "Please input the ISBN!" }]}
-              >
-                <AntInput />
-              </Form.Item>
+          <Form.Item
+            name="isbn"
+            label="ISBN"
+            rules={[{ required: true, message: "Please input the ISBN!" }]}
+          >
+            <AntInput />
+          </Form.Item>
 
-              <Form.Item
-                name="publisher"
-                label="Publisher"
-                rules={[
-                  { required: true, message: "Please input the publisher!" },
-                ]}
-              >
-                <AntInput />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="year"
-                label="Year"
-                rules={[{ required: true, message: "Please input the year!" }]}
-              >
-                <AntInput />
-              </Form.Item>
+          <Form.Item
+            name="publisher"
+            label="Publisher"
+            rules={[{ required: true, message: "Please input the publisher!" }]}
+          >
+            <AntInput />
+          </Form.Item>
 
-              <Form.Item
-                name="copiesAvailable"
-                label="Copies Available"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the available copies!",
-                  },
-                ]}
-              >
-                <AntInput type="number" />
-              </Form.Item>
+          <Form.Item
+            name="year"
+            label="Year"
+            rules={[{ required: true, message: "Please input the year!" }]}
+          >
+            <AntInput />
+          </Form.Item>
 
-              <Form.Item
-                name="totalCopies"
-                label="Total Copies"
-                rules={[
-                  { required: true, message: "Please input the total copies!" },
-                ]}
-              >
-                <AntInput type="number" />
-              </Form.Item>
+          <Form.Item
+            name="copiesAvailable"
+            label="Copies Available"
+            rules={[
+              {
+                required: true,
+                message: "Please input the available copies!",
+              },
+            ]}
+          >
+            <AntInput type="number" />
+          </Form.Item>
 
-              <Form.Item
-                name="shelfLocation"
-                label="Shelf Location"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the shelf location!",
-                  },
-                ]}
-              >
-                <AntInput />
-              </Form.Item>
+          <Form.Item
+            name="totalCopies"
+            label="Total Copies"
+            rules={[
+              { required: true, message: "Please input the total copies!" },
+            ]}
+          >
+            <AntInput type="number" />
+          </Form.Item>
 
-              <Form.Item
-                name="bookDescription"
-                label="Book Description"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the book description!",
-                  },
-                ]}
-              >
-                <TextArea />
-              </Form.Item>
-            </Col>
-          </Row>
+          <Form.Item
+            name="shelfLocation"
+            label="Shelf Location"
+            rules={[
+              {
+                required: true,
+                message: "Please input the shelf location!",
+              },
+            ]}
+          >
+            <AntInput />
+          </Form.Item>
+
+          <Form.Item
+            name="bookDescription"
+            label="Book Description"
+            rules={[
+              {
+                required: true,
+                message: "Please input the book description!",
+              },
+            ]}
+          >
+            <TextArea />
+          </Form.Item>
+
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
             Add Book
           </Button>
