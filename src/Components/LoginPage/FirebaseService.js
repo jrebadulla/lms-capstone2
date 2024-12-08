@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../Firebase/FirebaseConnection";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
@@ -13,10 +13,9 @@ export const loginUser = async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Query Firestore using email
     const staffQuery = query(
       collection(db, "staff"),
-      where("email", "==", email) // Match the user's email
+      where("email", "==", email) 
     );
 
     const querySnapshot = await getDocs(staffQuery);
