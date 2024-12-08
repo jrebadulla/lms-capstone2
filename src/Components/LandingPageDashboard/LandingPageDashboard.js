@@ -5,6 +5,7 @@ import {
   BarChartOutlined,
   BookOutlined,
   ContainerOutlined,
+  TransactionOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import logo from "../Image/logo-svcc.png";
@@ -13,6 +14,7 @@ import BookReport from "./BookReport.js";
 import AuditTrail from "./AuditTrail.js";
 import BookShelves from "./BookShelves.js";
 import ManageUser from "./ManageUser.js";
+import Transaction from "./Transaction.js";
 
 const LandingPageDashboard = () => {
   const [activeSection, setActiveSection] = useState("manageBook");
@@ -41,7 +43,14 @@ const LandingPageDashboard = () => {
             onClick={() => handleButtonClick("manageUser")}
           >
             <UserOutlined className="btn-side-icon" />
-            Manage User
+            User Operations
+          </button>
+          <button
+            className={activeSection === "transaction" ? "active" : ""}
+            onClick={() => handleButtonClick("transaction")}
+          >
+            <TransactionOutlined className="btn-side-icon" />
+            Transaction
           </button>
           <button
             className={activeSection === "bookReport" ? "active" : ""}
@@ -72,6 +81,7 @@ const LandingPageDashboard = () => {
         {activeSection === "bookReport" && <BookReport />}
         {activeSection === "auditTrail" && <AuditTrail />}
         {activeSection === "bookShelves" && <BookShelves />}
+        {activeSection === "transaction" && <Transaction />}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
-import { auth } from "../Firebase/FirebaseConnection";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { auth, db } from "../Firebase/FirebaseConnection";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 /**
@@ -7,14 +8,27 @@ import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/aut
  * @param {string} password - User password.
  * @returns {Promise} - Resolves if login is successful, rejects otherwise.
  */
-export const loginUser = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      return userCredential.user;
-    })
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+export const loginUser = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Query Firestore using email
+    const staffQuery = query(
+      collection(db, "staff"),
+      where("email", "==", email) // Match the user's email
+    );
+
+    const querySnapshot = await getDocs(staffQuery);
+    if (!querySnapshot.empty) {
+      const staffData = querySnapshot.docs[0].data();
+      return { uid: user.uid, email: user.email, ...staffData };
+    } else {
+      throw new Error("Staff data not found.");
+    }
+  } catch (error) {
+    throw error;
+  }
 };
 
 /**
