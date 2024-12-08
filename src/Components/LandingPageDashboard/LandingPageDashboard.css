@@ -67,6 +67,7 @@
   gap: 8px;
   letter-spacing: 1px;
   cursor: pointer;
+  text-align: justify;
 }
 
 .btn-side-icon {

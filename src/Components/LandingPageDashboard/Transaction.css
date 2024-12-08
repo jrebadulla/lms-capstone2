@@ -1,0 +1,29 @@
+.tab-main-container {
+  margin-top: 40px;
+}
+
+.custom-tab-label {
+  font-size: 14px;
+  color: #fff;
+}
+
+.ant-tabs-tab-active .custom-tab-label {
+  color: #380404 !important;
+}
+
+.ant-tabs-tab:hover .custom-tab-label {
+  color: #380404 !important;
+}
+
+.ant-tabs-ink-bar {
+  background-color: #380404 !important;
+  border-radius: 50px;
+}
+
+.ant-tabs-tab-active {
+  color: #380404 !important;
+}
+
+.tab-main-container h1{
+  color: #380404;
+}

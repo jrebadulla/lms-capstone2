@@ -2,6 +2,8 @@ import { React, useState } from "react";
 import "./ManageBook.css";
 import AntTable from "./Table";
 import Loading from "./Loading";
+import QRCode from "qrcode.react";
+
 import {
   Modal,
   Form,

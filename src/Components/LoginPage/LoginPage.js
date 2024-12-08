@@ -26,8 +26,16 @@ const LoginPage = () => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+  
     try {
-      await loginUser(email, password);
+      const staffData = await loginUser(email, password);
+      
+      // Save necessary data to localStorage
+      localStorage.setItem("userName", staffData.name);
+      localStorage.setItem("staffId", staffData.staffId);
+      localStorage.setItem("designation", staffData.designation);
+  
+      // Navigate to dashboard
       navigate("/dashboard");
     } catch (error) {
       setError(error.message);
@@ -35,6 +43,7 @@ const LoginPage = () => {
       setIsLoading(false);
     }
   };
+  
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
