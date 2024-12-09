@@ -6,12 +6,16 @@ import {
   message,
   Button,
   Spin,
-  Tag,
   InputNumber,
   Modal,
   Select,
+  Tooltip,
 } from "antd";
-import { EyeOutlined, ReadOutlined, RollbackOutlined } from "@ant-design/icons";
+import {
+  ReadOutlined,
+  RollbackOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import { db } from "../Firebase/FirebaseConnection";
 import {
   collection,
@@ -27,12 +31,14 @@ const Transaction = () => {
   const [issuedBooks, setIssuedBooks] = useState([]);
   const [returnedBooks, setReturnedBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   const [isStatusModalVisible, setIsStatusModalVisible] = useState(false);
   const [isFineModalVisible, setIsFineModalVisible] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [newStatus, setNewStatus] = useState("");
   const [fine, setFine] = useState(0);
+  const [isClearModalVisible, setIsClearModalVisible] = useState(false);
+  const [selectedBookForClear, setSelectedBookForClear] = useState(null);
+  const [clearStatus, setClearStatus] = useState("");
 
   const fetchIssuedBook = async () => {
     try {
@@ -90,6 +96,84 @@ const Transaction = () => {
     return `${monthStr}${monthStr && dayStr ? " & " : ""}${dayStr}`;
   };
 
+  const damagedAndMissingBooks = issuedBooks.filter(
+    (book) =>
+      book.status === "Damaged" ||
+      book.status === "Missing" ||
+      book.status === "Resolved" ||
+      book.status === "Paid"
+  );
+
+  const filteredIssuedBooks = issuedBooks.filter(
+    (book) =>
+      book.status !== "Damaged" &&
+      book.status !== "Missing" &&
+      book.status !== "Resolved" &&
+      book.status !== "Paid"
+  );
+
+  const handleClearClick = (book) => {
+    setSelectedBookForClear(book);
+    setIsClearModalVisible(true);
+  };
+
+  const handleClearStatus = async () => {
+    if (!clearStatus) {
+      message.error("Please select a status.");
+      return;
+    }
+
+    try {
+      const bookRef = doc(db, "issuedBooks", selectedBookForClear.key);
+      await updateDoc(bookRef, { status: clearStatus });
+
+      const actionDescription = `Updated book "${selectedBookForClear.title}" to status "${clearStatus}"`;
+      await logActivity(actionDescription);
+
+      message.success(`Book marked as ${clearStatus} successfully!`);
+      setIsClearModalVisible(false);
+      setClearStatus("");
+      setSelectedBookForClear(null);
+      await fetchIssuedBook();
+    } catch (error) {
+      console.error("Error updating book status:", error);
+      message.error("Failed to update the book status. Please try again.");
+    }
+  };
+
+  const logActivity = async (bookTitle, oldStatus, newStatus, fineAmount) => {
+    try {
+      const userName = localStorage.getItem("userName");
+      const logRef = collection(db, "user-activity-logs");
+
+      const now = new Date();
+      const formattedDateTime = now.toLocaleString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+
+      await addDoc(logRef, {
+        bookTitle: bookTitle,
+        oldStatus: oldStatus,
+        newStatus: newStatus,
+        fineAmount: fineAmount,
+        updatedBy: userName,
+        timestamp: now,
+        formattedDateTime,
+      });
+
+      console.log(
+        `Activity logged: ${bookTitle} status changed from ${oldStatus} to ${newStatus} with a fine of ₱${fineAmount}.`
+      );
+    } catch (error) {
+      console.error("Failed to log activity:", error);
+    }
+  };
+
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
@@ -121,7 +205,9 @@ const Transaction = () => {
     }
 
     try {
-      console.log("Returning book with ID:", book.bookId);
+      const actionDescription = `Returned book "${book.title}" borrowed by "${book.borrowedBy}"`;
+      await logActivity(actionDescription);
+
       const issuedBookRef = collection(db, "issuedBooks");
       const issuedBookSnapshot = await getDocs(issuedBookRef);
 
@@ -188,16 +274,16 @@ const Transaction = () => {
 
   const handleStatusClick = (book) => {
     setSelectedBook(book);
-    setNewStatus(book.status); // Prepopulate with current status
+    setNewStatus(book.status);
     setIsStatusModalVisible(true);
   };
 
   const handleStatusUpdate = () => {
     if (newStatus === "Damaged" || newStatus === "Missing") {
       setIsStatusModalVisible(false);
-      setIsFineModalVisible(true); // Show fine modal for certain statuses
+      setIsFineModalVisible(true);
     } else {
-      updateBookStatus(newStatus, 0); // No fine for "Good Condition"
+      updateBookStatus(newStatus, fine);
     }
   };
 
@@ -210,7 +296,9 @@ const Transaction = () => {
 
     try {
       const bookRef = doc(db, "issuedBooks", selectedBook.key);
+      const oldStatus = selectedBook.status;
       await updateDoc(bookRef, { status, fine: fineAmount });
+      await logActivity(selectedBook.title, oldStatus, status, fineAmount);
 
       message.success("Book status updated successfully!");
       setIsStatusModalVisible(false);
@@ -264,7 +352,7 @@ const Transaction = () => {
       title: "Duration",
       dataIndex: "duration",
       key: "duration",
-      render: (text, record) => calculateRemainingDuration(record.dueDate), // Dynamically calculated
+      render: (text, record) => calculateRemainingDuration(record.dueDate),
     },
 
     {
@@ -281,28 +369,27 @@ const Transaction = () => {
 
         switch (status) {
           case "Fine":
-            tagColor = "green";
+            tagColor = "gold";
             break;
           case "Damaged":
-            tagColor = "red";
+            tagColor = "gold";
             break;
           case "Missing":
-            tagColor = "gray";
+            tagColor = "gold";
             break;
           default:
             tagColor = "orange";
         }
 
         return (
-          <Tag
-            className="custom-tag"
-            bordered={false}
+          <Tooltip
+            title="Missing or Damaged Book?"
             color={tagColor}
-            style={{ cursor: "pointer" }}
-            onClick={() => handleStatusClick(record)} 
+            key={tagColor}
+            onClick={() => handleStatusClick(record)}
           >
-            {status}
-          </Tag>
+            <Button className="status-btn">{status}</Button>
+          </Tooltip>
         );
       },
     },
@@ -310,7 +397,7 @@ const Transaction = () => {
       title: "Fine",
       dataIndex: "fine",
       key: "fine",
-      render: (fine) => (fine > 0 ? `₱${fine}.00` : "No Fine"),
+      render: (fine) => (fine > 0 ? `₱${fine}.00` : "--"),
     },
 
     {
@@ -321,6 +408,108 @@ const Transaction = () => {
           <span>
             <Button type="primary" onClick={() => handleReturnBook(record)}>
               Return Book
+            </Button>
+          </span>
+        );
+      },
+    },
+  ];
+
+  const missingAndDamagedBook = [
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Author",
+      dataIndex: "author",
+      key: "author",
+    },
+    {
+      title: "Borrowed By",
+      dataIndex: "borrowedBy",
+      key: "borrowedBy",
+    },
+    {
+      title: "Issued Date",
+      dataIndex: "issuedAt",
+      key: "issuedAt",
+      render: (text) => {
+        const dueDate = text?.toDate();
+        return dueDate ? dueDate.toLocaleDateString() : "N/A";
+      },
+    },
+
+    {
+      title: "Due Date",
+      dataIndex: "dueDate",
+      key: "dueDate",
+      render: (text) => {
+        const dueDate = text?.toDate();
+        return dueDate ? dueDate.toLocaleDateString() : "N/A";
+      },
+    },
+    {
+      title: "Duration",
+      dataIndex: "duration",
+      key: "duration",
+      render: (text, record) => calculateRemainingDuration(record.dueDate),
+    },
+
+    {
+      title: "Accommodated By",
+      dataIndex: "accommodatedBy",
+      key: "accommodatedBy",
+    },
+    {
+      title: "Book Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status, record) => {
+        let tagColor;
+
+        switch (status) {
+          case "Fine":
+            tagColor = "gold";
+            break;
+          case "Damaged":
+            tagColor = "gold";
+            break;
+          case "Missing":
+            tagColor = "gold";
+            break;
+          default:
+            tagColor = "orange";
+        }
+
+        return (
+          <Tooltip
+            title="Change Book Status?"
+            color={tagColor}
+            key={tagColor}
+            onClick={() => handleStatusClick(record)}
+          >
+            <Button className="status-btn">{status}</Button>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: "Fine",
+      dataIndex: "fine",
+      key: "fine",
+      render: (fine) => (fine > 0 ? `₱${fine}.00` : "--"),
+    },
+
+    {
+      title: "Action",
+      key: "action",
+      render: (record) => {
+        return (
+          <span>
+            <Button type="primary" onClick={() => handleClearClick(record)}>
+              Clear
             </Button>
           </span>
         );
@@ -384,7 +573,7 @@ const Transaction = () => {
             children: (
               <Table
                 className="custom-table"
-                dataSource={issuedBooks}
+                dataSource={filteredIssuedBooks}
                 columns={borrowedColumns}
                 pagination={{ pageSize: 5 }}
                 locale={{
@@ -409,6 +598,22 @@ const Transaction = () => {
                 className="custom-table"
                 dataSource={returnedBooks}
                 columns={returnedColumns}
+                pagination={{ pageSize: 5 }}
+              />
+            ),
+          },
+          {
+            key: "3",
+            label: (
+              <span className="custom-tab-label">
+                <WarningOutlined /> Damaged and Missing Book
+              </span>
+            ),
+            children: (
+              <Table
+                className="custom-table"
+                dataSource={damagedAndMissingBooks}
+                columns={missingAndDamagedBook}
                 pagination={{ pageSize: 5 }}
               />
             ),
@@ -453,6 +658,24 @@ const Transaction = () => {
           step={1}
           placeholder="Enter fine amount"
         />
+      </Modal>
+      <Modal
+        className="custom-modal"
+        title="Clear Book Status"
+        visible={isClearModalVisible}
+        onCancel={() => setIsClearModalVisible(false)}
+        onOk={handleClearStatus}
+      >
+        <p>Select the new status for this book:</p>
+        <Select
+          style={{ width: "100%" }}
+          value={clearStatus}
+          onChange={(value) => setClearStatus(value)}
+        >
+          <Select.Option value="Fine">Fine</Select.Option>
+          <Select.Option value="Resolved">Resolved</Select.Option>
+          <Select.Option value="Paid">Paid</Select.Option>
+        </Select>
       </Modal>
     </div>
   );
