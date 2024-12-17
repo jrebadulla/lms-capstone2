@@ -158,15 +158,15 @@ const ManageBook = () => {
 
           <Form.Item
             name="shelfLocation"
-            label="Shelf Location"
+            label="Shelf Number"
             rules={[
               {
                 required: true,
-                message: "Please input the shelf location!",
+                message: "Please input the shelf Number!",
               },
             ]}
           >
-            <AntInput />
+            <AntInput type="number" />
           </Form.Item>
 
           <Form.Item

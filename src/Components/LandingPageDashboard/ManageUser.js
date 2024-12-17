@@ -97,12 +97,22 @@ const ManageUser = () => {
     setLoading(false);
   };
 
+  const generateAvatarSeed = (identifier) => {
+    let hash = 0;
+    for (let i = 0; i < identifier.length; i++) {
+      hash = identifier.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash.toString();
+  };
+
   const handleAddStaff = async (values) => {
     const libraryCardNumber = `LIB-${uuidv4().slice(0, 8).toUpperCase()}`;
+    const avatarSeed = generateAvatarSeed(values.name || values.email); // Generate avatar seed
 
     const newStaff = {
       ...values,
       libraryCardNumber,
+      avatarSeed, // Add avatar seed to staff data
     };
 
     try {
@@ -238,11 +248,10 @@ const ManageUser = () => {
     {
       title: "Avatar",
       key: "avatar",
-
       render: (_, record) => (
         <Avatar
           className="custom-avatar"
-          src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${record.index}`}
+          src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${record.avatarSeed}`}
         />
       ),
     },
@@ -337,7 +346,7 @@ const ManageUser = () => {
         className="custom-table"
         columns={columns}
         dataSource={staffList}
-        pagination={{ pageSize: 5 }}
+        pagination={{ pageSize: 5, size: "middle" }}
         locale={{
           emptyText: loading ? (
             <Spin tip="Loading Staff..." />
@@ -515,9 +524,10 @@ const ManageUser = () => {
             <div style={{ textAlign: "center", marginBottom: "20px" }}>
               <Avatar
                 size={64}
-                src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${selectedStaff.index}`}
+                src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${selectedStaff.avatarSeed}`}
               />
             </div>
+
             <Descriptions bordered column={1}>
               <Descriptions.Item label="Full Name">
                 {selectedStaff.name}
