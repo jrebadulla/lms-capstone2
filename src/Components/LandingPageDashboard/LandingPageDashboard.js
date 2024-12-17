@@ -43,14 +43,14 @@ const LandingPageDashboard = () => {
             onClick={() => handleButtonClick("manageUser")}
           >
             <UserOutlined className="btn-side-icon" />
-            User Operations
+            User Operation
           </button>
           <button
             className={activeSection === "transaction" ? "active" : ""}
             onClick={() => handleButtonClick("transaction")}
           >
             <TransactionOutlined className="btn-side-icon" />
-            Transaction
+            Book Operation
           </button>
           <button
             className={activeSection === "bookReport" ? "active" : ""}

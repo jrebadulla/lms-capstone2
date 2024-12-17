@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Transaction.css";
+import noData from "../Image/noData.png";
 import {
   Tabs,
   Table,
@@ -14,6 +15,7 @@ import {
 import {
   ReadOutlined,
   RollbackOutlined,
+  SmileOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
 import { db } from "../Firebase/FirebaseConnection";
@@ -127,8 +129,36 @@ const Transaction = () => {
       const bookRef = doc(db, "issuedBooks", selectedBookForClear.key);
       await updateDoc(bookRef, { status: clearStatus });
 
+      // Fetch the book from the "books" collection using bookId
+      const booksRef = collection(db, "books");
+      const booksSnapshot = await getDocs(booksRef);
+      const matchedBook = booksSnapshot.docs.find(
+        (doc) => doc.id === selectedBookForClear.bookId
+      );
+
+      if (matchedBook) {
+        const matchedBookRef = doc(db, "books", matchedBook.id);
+        const currentTotalCopies = parseInt(matchedBook.data().totalCopies);
+
+        if (clearStatus === "Resolved") {
+          // Increment total copies by 1
+          await updateDoc(matchedBookRef, {
+            totalCopies: (currentTotalCopies + 1).toString(),
+          });
+        } else if (clearStatus === "Missing") {
+          // Decrement total copies by 1
+          await updateDoc(matchedBookRef, {
+            totalCopies: Math.max(currentTotalCopies - 1, 0).toString(),
+          });
+        }
+      }
+
       const actionDescription = `Updated book "${selectedBookForClear.title}" to status "${clearStatus}"`;
-      await logActivity(actionDescription);
+      await logActivity(
+        selectedBookForClear.title,
+        selectedBookForClear.status,
+        clearStatus
+      );
 
       message.success(`Book marked as ${clearStatus} successfully!`);
       setIsClearModalVisible(false);
@@ -297,7 +327,33 @@ const Transaction = () => {
     try {
       const bookRef = doc(db, "issuedBooks", selectedBook.key);
       const oldStatus = selectedBook.status;
+
+      // Update the issued book's status and fine
       await updateDoc(bookRef, { status, fine: fineAmount });
+
+      // If the status is 'Missing', decrement the total copies in the books collection
+      if (status === "Missing") {
+        const booksRef = collection(db, "books");
+        const booksSnapshot = await getDocs(booksRef);
+
+        const matchedBook = booksSnapshot.docs.find(
+          (doc) => doc.id === selectedBook.bookId
+        );
+
+        if (matchedBook) {
+          const matchedBookRef = doc(db, "books", matchedBook.id);
+          const currentCopiesAvailable = parseInt(
+            matchedBook.data().totalCopies
+          );
+
+          // Decrement available copies by 1
+          await updateDoc(matchedBookRef, {
+            totalCopies: Math.max(currentCopiesAvailable - 1, 0).toString(),
+          });
+        }
+      }
+
+      // Log activity
       await logActivity(selectedBook.title, oldStatus, status, fineAmount);
 
       message.success("Book status updated successfully!");
@@ -580,7 +636,11 @@ const Transaction = () => {
                   emptyText: isLoading ? (
                     <Spin tip="Loading Books..." />
                   ) : (
-                    "No Data"
+                    <span>
+                      {" "}
+                      <img className="noData" src={noData} /> No Issued Book
+                      Found
+                    </span>
                   ),
                 }}
               />
@@ -614,7 +674,8 @@ const Transaction = () => {
                 className="custom-table"
                 dataSource={damagedAndMissingBooks}
                 columns={missingAndDamagedBook}
-                pagination={{ pageSize: 5 }}
+                pagination={{ pageSize: 4 }}
+                size="middle"
               />
             ),
           },

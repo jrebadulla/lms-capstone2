@@ -165,7 +165,6 @@ const AntTable = ({ setRefreshBooks }) => {
         locale={{
           emptyText: isLoading ? <Spin tip="Loading Books..." /> : "No Data",
         }}
-    
       />
 
       <Modal
